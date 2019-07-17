@@ -2,9 +2,10 @@ package au.com.rea.command;
 
 import java.util.Optional;
 
-import au.com.rea.DirectionFactory;
 import au.com.rea.domain.Direction;
 import au.com.rea.domain.Robot;
+import au.com.rea.exception.RobotControllerException;
+import au.com.rea.factory.DirectionFactory;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,7 +19,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class PlaceCommandTest {
 
     @Test
-    public void process() throws Exception {
+    public void testPlaceCommand() throws Exception {
         DirectionFactory directionFactory = new DirectionFactory();
         Command placeCommand = new PlaceCommand(directionFactory);
         String[] args =  {"1", "0", "EAST"};
@@ -27,5 +28,13 @@ public class PlaceCommandTest {
         assertThat(robot.getCoordinates().getXCoordinate(), is(1));
         assertThat(robot.getCoordinates().getYCoordinate(), is(0));
         assertThat(robot.getDirectionVO().getDirection(), is(Direction.EAST));
+    }
+
+    @Test(expected = RobotControllerException.class)
+    public void testPlaceWithInvalidPosition() throws Exception {
+        DirectionFactory directionFactory = new DirectionFactory();
+        Command placeCommand = new PlaceCommand(directionFactory);
+        String[] args = {"1", "6", "EAST"};
+        Robot robot = placeCommand.process(Optional.empty(), args);
     }
 }

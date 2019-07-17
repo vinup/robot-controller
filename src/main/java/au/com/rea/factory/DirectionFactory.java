@@ -1,4 +1,4 @@
-package au.com.rea;
+package au.com.rea.factory;
 
 import java.util.HashMap;
 import java.util.Map;

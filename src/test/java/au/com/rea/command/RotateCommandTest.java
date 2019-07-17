@@ -2,14 +2,14 @@ package au.com.rea.command;
 
 import java.util.Optional;
 
-import au.com.rea.DirectionFactory;
 import au.com.rea.domain.*;
 import au.com.rea.exception.RobotControllerException;
+import au.com.rea.factory.DirectionFactory;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  *

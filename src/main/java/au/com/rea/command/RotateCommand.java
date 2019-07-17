@@ -2,12 +2,12 @@ package au.com.rea.command;
 
 import java.util.Optional;
 
-import au.com.rea.DirectionFactory;
 import au.com.rea.domain.Direction;
 import au.com.rea.domain.DirectionVO;
 import au.com.rea.domain.Robot;
 import au.com.rea.domain.Rotation;
 import au.com.rea.exception.RobotControllerException;
+import au.com.rea.factory.DirectionFactory;
 
 /**
  *
