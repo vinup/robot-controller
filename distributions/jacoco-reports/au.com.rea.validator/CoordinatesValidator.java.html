@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/>
+    <link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/>
+    <title>CoordinatesValidator.java</title>
+    <link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/>
+    <script type="text/javascript" src="../jacoco-resources/prettify.js"></script>
+</head>
+<body onload="window['PR_TAB_WIDTH']=4;prettyPrint()">
+<div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html"
+                                                              class="el_session">Sessions</a></span><a
+        href="../index.html" class="el_report">robot-controller</a> &gt; <a href="index.source.html" class="el_package">au.com.rea.validator</a>
+    &gt; <span class="el_source">CoordinatesValidator.java</span></div>
+<h1>CoordinatesValidator.java</h1>
+<pre class="source lang-java linenums">package au.com.rea.validator;
+
+import au.com.rea.domain.Coordinates;
+
+/**
+ *
+ */
+<span class="nc" id="L8">public class CoordinatesValidator {</span>
+    private static final int MAX_X_COORDINATE = 5;
+    private static final int MIN_X_COORDINATE = 0;
+    private static final int MAX_Y_COORDINATE = 5;
+    private static final int MIN_Y_COORDINATE = 0;
+
+    public static boolean validate(Coordinates coordinates) {
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        return validateXCoordinate(coordinates.getXCoordinate())</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">            &amp;&amp; validateYCoordinate(coordinates.getYCoordinate());</span>
+    }
+
+    private static boolean validateXCoordinate(int xCoordinate) {
+<span class="pc bpc" id="L20" title="1 of 4 branches missed.">        return xCoordinate &gt;= MIN_X_COORDINATE &amp;&amp; xCoordinate &lt;= MAX_X_COORDINATE;</span>
+
+    }
+
+    private static boolean validateYCoordinate(int yCoordinate) {
+<span class="pc bpc" id="L25" title="1 of 4 branches missed.">        return yCoordinate &gt;= MIN_Y_COORDINATE &amp;&amp; yCoordinate &lt;= MAX_Y_COORDINATE;</span>
+    }
+
+}
+</pre>
+<div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span>
+</div>
+</body>
+</html>

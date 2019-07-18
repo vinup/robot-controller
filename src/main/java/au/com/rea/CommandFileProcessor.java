@@ -1,5 +1,6 @@
 package au.com.rea;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * This class is responsible for processing the input file and performing all the commands.
  */
 public class CommandFileProcessor {
     private Logger logger = LoggerFactory.getLogger(CommandFileProcessor.class);
@@ -30,10 +31,29 @@ public class CommandFileProcessor {
         commandFactory = new CommandFactory(directionFactory);
     }
 
-    public void processCommandFile(String inputFilePath) throws Exception {
-        Path inputFile = Paths.get(inputFilePath);
-        for (String commandLine : Files.readAllLines(inputFile)) {
-            processCommandLine(commandLine);
+
+    /**
+     * This method is responsible for processing the input file.
+     * It throws RobotControllerException in the below scenarios.
+     * 1. Input File cannot be found or not a valid file.
+     * 2. First Command is not 'PLACE'.
+     * 3. If PLACE has invalid arguments.
+     * 4. If PLACE or MOVE take ROBOT beyond the table limits.
+     *
+     * @param inputFilePath
+     * @throws RobotControllerException
+     */
+    public void processCommandFile(String inputFilePath) throws RobotControllerException {
+        try {
+            Path inputFile = Paths.get(inputFilePath);
+
+            for (String commandLine : Files.readAllLines(inputFile)) {
+                processCommandLine(commandLine);
+            }
+        } catch (IOException ex) {
+            logger.error("Invalid Input File: {}", inputFilePath, ex);
+            throw new RobotControllerException(String.format(
+                "Unable to find input file in the given location' %s", inputFilePath));
         }
     }
 

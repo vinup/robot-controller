@@ -7,7 +7,8 @@ import au.com.rea.command.*;
 import au.com.rea.domain.Rotation;
 
 /**
- *
+ * The command factory holds the mapping between commands and their action classes.
+ * Each command is processed based on it's own implementation.
  */
 public class CommandFactory {
     private final Map<String, Command> commandRegister;

@@ -6,10 +6,13 @@ import au.com.rea.domain.Coordinates;
 import au.com.rea.domain.Direction;
 import au.com.rea.domain.DirectionVO;
 import au.com.rea.domain.Robot;
-import au.com.rea.exception.RobotControllerException;
 import au.com.rea.factory.DirectionFactory;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -30,8 +33,10 @@ public class ReportCommandTest {
     }
 
 
-    @Test(expected =  RobotControllerException.class)
+    @Test
     public void testReportBeforePlace() throws Exception {
         robot = reportCommand.process(Optional.empty());
+        //As the Robot hasn't been placed yet, it will still be uninitialised.
+        assertThat(robot, is(nullValue()));
     }
 }

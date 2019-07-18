@@ -1,7 +1,7 @@
 package au.com.rea.domain;
 
 /**
- *
+ * Domain class for Robot representing it's coordinates and direction.
  */
 public class Robot {
     private Coordinates coordinates;

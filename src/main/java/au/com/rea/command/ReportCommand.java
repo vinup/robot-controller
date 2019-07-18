@@ -6,16 +6,18 @@ import au.com.rea.domain.Robot;
 import au.com.rea.exception.RobotControllerException;
 
 /**
- *
+ * Command Implementation for Report.
  */
 public class ReportCommand implements Command {
 
     @Override
     public Robot process(Optional<Robot> robot, String... arguments) throws RobotControllerException {
-        if (!robot.isPresent()) {
-            throw new RobotControllerException("Robot needs to be placed on the table first.");
+        if (robot.isPresent()) {
+            System.out.println(robot.get());
+            return robot.get();
+        } else {
+            System.out.println("Robot hasn't been placed on the table yet.");
         }
-        System.out.println(robot.get());
-        return robot.get();
+        return null;
     }
 }

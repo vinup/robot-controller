@@ -6,6 +6,7 @@ import au.com.rea.exception.RobotControllerException;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -36,8 +37,21 @@ public class CommandFileProcessorTest {
         assertThat(robot.getCoordinates().getYCoordinate(), is(1));
     }
 
-    @Test(expected = RobotControllerException.class)
+    @Test
     public void testInputFileWithNoPlace() throws Exception {
         commandFileProcessor.processCommandFile("src/test/resources/testInputCommands2.txt");
+        //As the Robot hasn't been placed yet, it will still be uninitialised.
+        assertThat(commandFileProcessor.getRobot(), is(nullValue()));
+
+    }
+
+    @Test(expected = RobotControllerException.class)
+    public void testProcessWithWrongFileLocation() throws Exception {
+        commandFileProcessor.processCommandFile("src/test/resources/wronglocation.txt");
+    }
+
+    @Test(expected = RobotControllerException.class)
+    public void testProcessWithWrongCommand() throws Exception {
+        commandFileProcessor.processCommandLine("BACK");
     }
 }

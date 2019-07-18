@@ -8,7 +8,8 @@ import au.com.rea.domain.Direction;
 import au.com.rea.domain.DirectionVO;
 
 /**
- *
+ * Direction Factory holds the mapping between the direction and their value objects.
+ * Each direct has it's VO, which holds it's coordinates and linked directions.
  */
 public class DirectionFactory {
     private Map<Direction, DirectionVO> directions;

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/>
+    <link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/>
+    <title>DirectionVO.java</title>
+    <link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/>
+    <script type="text/javascript" src="../jacoco-resources/prettify.js"></script>
+</head>
+<body onload="window['PR_TAB_WIDTH']=4;prettyPrint()">
+<div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html"
+                                                              class="el_session">Sessions</a></span><a
+        href="../index.html" class="el_report">robot-controller</a> &gt; <a href="index.source.html" class="el_package">au.com.rea.domain</a>
+    &gt; <span class="el_source">DirectionVO.java</span></div>
+<h1>DirectionVO.java</h1>
+<pre class="source lang-java linenums">package au.com.rea.domain;
+
+/**
+ * Direction Value Object holding the direction, coordinates and link to the next directions.
+ */
+public class DirectionVO {
+    private Direction direction;
+    private Direction clockwiseNext;
+    private Direction antiClockwiseNext;
+    private Coordinates coordinates;
+
+<span class="fc" id="L12">    public DirectionVO(Direction direction, Direction clockwiseNext, Direction antiClockwiseNext, Coordinates coordinates) {</span>
+<span class="fc" id="L13">        this.direction = direction;</span>
+<span class="fc" id="L14">        this.clockwiseNext = clockwiseNext;</span>
+<span class="fc" id="L15">        this.antiClockwiseNext = antiClockwiseNext;</span>
+<span class="fc" id="L16">        this.coordinates = coordinates;</span>
+<span class="fc" id="L17">    }</span>
+
+    public Direction getDirection() {
+<span class="fc" id="L20">        return direction;</span>
+    }
+
+    public Direction getClockwiseNext() {
+<span class="fc" id="L24">        return clockwiseNext;</span>
+    }
+
+    public Direction getAntiClockwiseNext() {
+<span class="fc" id="L28">        return antiClockwiseNext;</span>
+    }
+
+    public Coordinates getCoordinates() {
+<span class="fc" id="L32">        return coordinates;</span>
+    }
+}
+</pre>
+<div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span>
+</div>
+</body>
+</html>

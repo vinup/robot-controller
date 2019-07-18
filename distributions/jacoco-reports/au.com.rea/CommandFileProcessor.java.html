@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/>
+    <link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/>
+    <title>CommandFileProcessor.java</title>
+    <link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/>
+    <script type="text/javascript" src="../jacoco-resources/prettify.js"></script>
+</head>
+<body onload="window['PR_TAB_WIDTH']=4;prettyPrint()">
+<div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html"
+                                                              class="el_session">Sessions</a></span><a
+        href="../index.html" class="el_report">robot-controller</a> &gt; <a href="index.source.html" class="el_package">au.com.rea</a>
+    &gt; <span class="el_source">CommandFileProcessor.java</span></div>
+<h1>CommandFileProcessor.java</h1>
+<pre class="source lang-java linenums">package au.com.rea;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.Optional;
+
+import au.com.rea.command.Command;
+import au.com.rea.domain.Robot;
+import au.com.rea.exception.RobotControllerException;
+import au.com.rea.factory.CommandFactory;
+import au.com.rea.factory.DirectionFactory;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * This class is responsible for processing the input file and performing all the commands.
+ */
+public class CommandFileProcessor {
+<span class="fc" id="L23">    private Logger logger = LoggerFactory.getLogger(CommandFileProcessor.class);</span>
+    private DirectionFactory directionFactory;
+    private CommandFactory commandFactory;
+    private Robot robot;
+
+
+<span class="fc" id="L29">    public CommandFileProcessor() {</span>
+<span class="fc" id="L30">        directionFactory = new DirectionFactory();</span>
+<span class="fc" id="L31">        commandFactory = new CommandFactory(directionFactory);</span>
+<span class="fc" id="L32">    }</span>
+
+
+    /**
+     * This method is responsible for processing the input file.
+     * It throws RobotControllerException in the below scenarios.
+     * 1. Input File cannot be found or not a valid file.
+     * 2. First Command is not 'PLACE'.
+     * 3. If PLACE has invalid arguments.
+     * 4. If PLACE or MOVE take ROBOT beyond the table limits.
+     *
+     * @param inputFilePath
+     * @throws RobotControllerException
+     */
+    public void processCommandFile(String inputFilePath) throws RobotControllerException {
+        try {
+<span class="fc" id="L48">            Path inputFile = Paths.get(inputFilePath);</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            for (String commandLine : Files.readAllLines(inputFile)) {</span>
+<span class="fc" id="L51">                processCommandLine(commandLine);</span>
+<span class="fc" id="L52">            }</span>
+<span class="fc" id="L53">        } catch (IOException ex) {</span>
+<span class="fc" id="L54">            logger.error(&quot;Invalid Input File: {}&quot;, inputFilePath, ex);</span>
+<span class="fc" id="L55">            throw new RobotControllerException(String.format(</span>
+                &quot;Unable to find input file in the given location' %s&quot;, inputFilePath));
+<span class="fc" id="L57">        }</span>
+<span class="fc" id="L58">    }</span>
+
+    protected void processCommandLine(String commandLine) throws RobotControllerException {
+<span class="fc"
+      id="L61">        Map&lt;String, Command&gt; commandRegister = commandFactory.getCommandRegister();</span>
+<span class="fc" id="L62">        String[] commandParts = StringUtils.split(commandLine, &quot; &quot;);</span>
+<span class="pc bpc" id="L63" title="2 of 4 branches missed.">        if (commandParts == null || commandParts.length &lt; 1) {</span>
+<span class="nc" id="L64">            logger.error(&quot;Invalid command: {}&quot;, commandLine);</span>
+<span class="nc" id="L65">            throw new RobotControllerException(String.format(&quot;Invalid command: %s&quot;, commandLine));</span>
+        }
+<span class="fc" id="L67">        String action = StringUtils.upperCase(commandParts[0]);</span>
+<span class="fc" id="L68">        String[] args = null;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        String argumentPart = commandParts.length &gt; 1 ? commandParts[1] : null;</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (StringUtils.isNotBlank(argumentPart)) {</span>
+<span class="fc" id="L71">            args = StringUtils.split(argumentPart, &quot;,&quot;);</span>
+        }
+
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (commandRegister.containsKey(action)) {</span>
+<span class="fc" id="L75">            Command command = commandRegister.get(action);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            Optional&lt;Robot&gt; optionalRobot = robot != null ? Optional.of(robot) : Optional.empty();</span>
+<span class="fc" id="L77">            robot = command.process(optionalRobot, args);</span>
+<span class="fc" id="L78">        } else {</span>
+<span class="fc" id="L79">            logger.error(&quot;Invalid command: {}&quot;, commandLine);</span>
+<span class="fc" id="L80">            throw new RobotControllerException(String.format(&quot;Invalid command: %s&quot;, commandLine));</span>
+        }
+
+<span class="fc" id="L83">    }</span>
+
+    public Robot getRobot() {
+<span class="fc" id="L86">        return robot;</span>
+    }
+}
+</pre>
+<div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span>
+</div>
+</body>
+</html>

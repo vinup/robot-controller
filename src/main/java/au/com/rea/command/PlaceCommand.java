@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Command implementation for Place.
  */
 public class PlaceCommand implements Command {
     private Logger log = LoggerFactory.getLogger(PlaceCommand.class);
@@ -37,13 +37,13 @@ public class PlaceCommand implements Command {
                 DirectionVO directionVO = directionFactory.getDirections().get(direction);
                 return new Robot(coordinates, directionVO);
             } else {
-                log.error("Invalid position for the Robot");
-                throw new RobotControllerException("Invalid position for the Robot");
+                log.warn("Ignoring the move as new position is beyond table dimensions.");
             }
         } catch (Exception e) {
             log.error("Error occurred while parsing the parameters for Place Command.");
             throw new RobotControllerException("Invalid Parameters for Place command ");
         }
+        return null;
     }
 
 }

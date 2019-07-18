@@ -7,7 +7,7 @@
         </layout>
     </appender>
 
-    <logger name="au.com.mebank" level="debug">
+    <logger name="au.com.rea" level="debug">
         <appender-ref ref="CONSOLE"/>
     </logger>
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/>
+    <link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/>
+    <title>RobotControllerApplication.java</title>
+    <link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/>
+    <script type="text/javascript" src="../jacoco-resources/prettify.js"></script>
+</head>
+<body onload="window['PR_TAB_WIDTH']=4;prettyPrint()">
+<div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html"
+                                                              class="el_session">Sessions</a></span><a
+        href="../index.html" class="el_report">robot-controller</a> &gt; <a href="index.source.html" class="el_package">au.com.rea</a>
+    &gt; <span class="el_source">RobotControllerApplication.java</span></div>
+<h1>RobotControllerApplication.java</h1>
+<pre class="source lang-java linenums">package au.com.rea;
+
+import au.com.rea.exception.RobotControllerException;
+import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+<span class="nc" id="L8">public class RobotControllerApplication {</span>
+    private static CommandFileProcessor commandFileProcessor;
+<span class="fc"
+      id="L10">    private static Logger logger = LoggerFactory.getLogger(RobotControllerApplication.class);</span>
+<span class="fc" id="L11">    private static String USAGE_GRADLE = &quot;&lt;bash&gt; gradlew run --args= &lt;input file location&gt;&quot;;</span>
+<span class="fc" id="L12">    private static String USAGE_JAR = &quot;java -jar  robot-controller-1.0.jar &lt;input file location&gt;&quot;;</span>
+
+
+    public static void main(String[] args) {
+<span class="pc bpc" id="L16" title="2 of 4 branches missed.">        if (!ArrayUtils.isEmpty(args) &amp;&amp; args.length == 1) {</span>
+<span class="pc bpc" id="L17" title="1 of 2 branches missed.">            if(commandFileProcessor == null){</span>
+<span class="nc" id="L18">                commandFileProcessor = new CommandFileProcessor();</span>
+            }
+            try {
+<span class="fc" id="L21">                commandFileProcessor.processCommandFile(args[0]);</span>
+
+<span class="nc" id="L23">            } catch (RobotControllerException rcEx) {</span>
+<span class="nc" id="L24">                System.out.println(rcEx.getMessage());</span>
+<span class="pc" id="L25">            }</span>
+        }
+        else {
+<span class="nc" id="L28">            System.out.println(&quot;Invalid arguments for the ROBOT Controller, please run the application as below!&quot;);</span>
+<span class="nc" id="L29">            System.out.println(&quot;Running through Gradle: &quot; + USAGE_GRADLE);</span>
+<span class="nc" id="L30">            System.out.println(&quot;Running through embedded jar: &quot; + USAGE_JAR);</span>
+        }
+<span class="fc" id="L32">    }</span>
+
+    protected static void setCommandFileProcessor(CommandFileProcessor commandFileProcessor) {
+<span class="fc" id="L35">        RobotControllerApplication.commandFileProcessor = commandFileProcessor;</span>
+<span class="fc" id="L36">    }</span>
+}
+</pre>
+<div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span>
+</div>
+</body>
+</html>

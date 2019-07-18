@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -40,9 +41,12 @@ public class RotateCommandTest {
         robot = rotateCommand.process(Optional.of(robot));
         assertThat(robot.getDirectionVO().getDirection(), is(Direction.SOUTH));
     }
-    @Test(expected =  RobotControllerException.class)
+
+    @Test
     public void testRotateBeforePlace() throws Exception{
         rotateCommand = new RotateCommand(directionFactory, Rotation.LEFT);
         Robot robot = rotateCommand.process(Optional.empty());
+        //As the Robot hasn't been placed yet, it will still be uninitialised.
+        assertThat(robot, is(nullValue()));
     }
 }

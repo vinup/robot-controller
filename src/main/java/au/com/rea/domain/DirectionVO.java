@@ -1,7 +1,7 @@
 package au.com.rea.domain;
 
 /**
- *
+ * Direction Value Object holding the direction, coordinates and link to the next directions.
  */
 public class DirectionVO {
     private Direction direction;
